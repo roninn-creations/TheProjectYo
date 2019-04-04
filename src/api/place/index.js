@@ -40,7 +40,7 @@ router.post('/',
  */
 router.get('/',
   token({ required: true }),
-  query({category: category}),
+  query(),
   index)
 
 /**
