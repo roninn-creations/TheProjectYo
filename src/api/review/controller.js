@@ -8,9 +8,18 @@ export const create = ({ user, bodymen: { body } }, res, next) =>
     .catch(next)
 
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
-  Review.find(query, select, cursor)
-    .populate('user')
-    .then((reviews) => reviews.map((review) => review.view()))
+  // Review.find(query, select, cursor)
+  //   .populate('user')
+  //   .then((reviews) => reviews.map((review) => review.view()))
+  //   .then(success(res))
+  //   .catch(next)
+  Review.count(query)
+    .then(count => Review.find(query, select, cursor)
+      .then((reviews) => ({
+        count,
+        rows: reviews.map((review) => review.view())
+      }))
+    )
     .then(success(res))
     .catch(next)
 
