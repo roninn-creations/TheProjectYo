@@ -15,6 +15,7 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   //   .catch(next)
   Review.count(query)
     .then(count => Review.find(query, select, cursor)
+      .populate('user')
       .then((reviews) => ({
         count,
         rows: reviews.map((review) => review.view())
